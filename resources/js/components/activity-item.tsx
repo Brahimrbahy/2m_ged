@@ -1,12 +1,14 @@
 import { router } from '@inertiajs/react';
+import { FileText, Trash2, Link, UserPlus, UserMinus, Pin } from 'lucide-react';
 import type { ActivityItem as ActivityItemType } from '@/types';
+import type { LucideIcon } from 'lucide-react';
 
-const typeIcons: Record<string, string> = {
-    document_uploaded: '📄',
-    document_deleted: '🗑️',
-    document_shared: '🔗',
-    member_added: '👤',
-    member_removed: '👋',
+const typeIcons: Record<string, LucideIcon> = {
+    document_uploaded: FileText,
+    document_deleted: Trash2,
+    document_shared: Link,
+    member_added: UserPlus,
+    member_removed: UserMinus,
 };
 
 function timeAgo(dateString: string): string {
@@ -37,7 +39,7 @@ export default function ActivityItem({ activity }: ActivityItemProps) {
         }
     }
 
-    const icon = typeIcons[activity.type] || '📌';
+    const Icon = typeIcons[activity.type] || Pin;
     const hasLink = activity.subject_type && activity.subject_id;
 
     return (
@@ -46,7 +48,7 @@ export default function ActivityItem({ activity }: ActivityItemProps) {
             disabled={!hasLink}
             className="flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 disabled:cursor-default disabled:hover:bg-transparent dark:disabled:hover:bg-transparent"
         >
-            <span className="mt-0.5 text-lg">{icon}</span>
+            <Icon className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
             <div className="min-w-0 flex-1">
                 <p className="text-sm">
                     <span className="font-medium">{activity.user.name}</span>{' '}

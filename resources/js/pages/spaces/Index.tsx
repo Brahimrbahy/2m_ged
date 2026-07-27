@@ -1,4 +1,5 @@
 import { Head, router } from '@inertiajs/react';
+import { FolderOpen } from 'lucide-react';
 import SpaceCard from '@/components/space-card';
 import { Button } from '@/components/ui/button';
 import type { Space } from '@/types';
@@ -22,7 +23,7 @@ export default function Index({ spaces }: IndexProps) {
 
                 {spaces.length === 0 ? (
                     <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-12 text-center">
-                        <span className="text-4xl">📂</span>
+                        <FolderOpen className="h-10 w-10 text-muted-foreground" />
                         <h2 className="mt-4 text-lg font-semibold">No spaces yet</h2>
                         <p className="mt-1 text-sm text-muted-foreground">
                             Create a space to organize and collaborate on documents.

@@ -1,4 +1,5 @@
 import { usePage } from '@inertiajs/react';
+import { Lock } from 'lucide-react';
 import type { UserRole } from '@/types';
 
 interface RoleGuardProps {
@@ -19,7 +20,7 @@ export default function RoleGuard({ requiredRole, children }: RoleGuardProps) {
     if (!userRole || roleHierarchy[userRole] < roleHierarchy[requiredRole]) {
         return (
             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-12 text-center">
-                <span className="text-4xl">🔒</span>
+                <Lock className="h-10 w-10 text-muted-foreground" />
                 <h2 className="mt-4 text-lg font-semibold">Access Denied</h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                     You don't have permission to view this page.

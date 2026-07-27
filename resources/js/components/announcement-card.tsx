@@ -8,17 +8,16 @@ interface AnnouncementCardProps {
     announcement: Announcement;
 }
 
-function timeAgo(dateString: string): string {
+function formatDateTime(dateString: string): string {
     const date = new Date(dateString);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffDay = Math.floor(diffMs / 86400000);
-
-    if (diffDay < 1) return 'Today';
-    if (diffDay === 1) return 'Yesterday';
-    if (diffDay < 7) return `${diffDay} days ago`;
-    if (diffDay < 30) return `${Math.floor(diffDay / 7)} weeks ago`;
-    return date.toLocaleDateString();
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    }) + ' at ' + date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+    });
 }
 
 export default function AnnouncementCard({
@@ -59,7 +58,7 @@ export default function AnnouncementCard({
                 </p>
                 <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground">
                     <span>by {announcement.creator.name}</span>
-                    <span>{timeAgo(announcement.created_at)}</span>
+                    <span>{formatDateTime(announcement.created_at)}</span>
                     {announcement.target_space && (
                         <span>in {announcement.target_space.name}</span>
                     )}

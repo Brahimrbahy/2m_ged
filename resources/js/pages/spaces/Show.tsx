@@ -1,11 +1,13 @@
 import { Head, router, useForm, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { Folder } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import InputError from '@/components/input-error';
+import { getFileIcon } from '@/lib/icons';
 import type { SpaceDetail, SpaceMember } from '@/types';
 
 interface ShowProps {
@@ -29,29 +31,70 @@ export default function Show({ space, availableUsers }: ShowProps) {
     const { auth } = usePage().props;
     const canEdit = space.user_role === 'admin' || space.user_role === 'contributor';
     const isCreator = auth.user?.id === space.creator.id;
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [isDragOver, setIsDragOver] = useState(false);
 
     const { data: addMemberData, setData: setAddMemberData, post: postMember, processing: addingMember, errors: addMemberErrors } = useForm({
         user_id: '',
         role: 'viewer' as string,
     });
 
+    const { data: uploadData, setData: setUploadData, post: postUpload, processing: uploading, progress, errors: uploadErrors } = useForm({
+        file: null as File | null,
+        title: '',
+    });
+
     function handleAddMember(e: React.FormEvent) {
         e.preventDefault();
-        postMember(`/spaces/${space.id}/members`, {
+        postMember(`/spaces/${space.slug}/members`, {
             onSuccess: () => setAddMemberData('user_id', ''),
         });
     }
 
     function handleRemoveMember(userId: number) {
         if (confirm('Remove this member from the space?')) {
-            router.delete(`/spaces/${space.id}/members/${userId}`);
+            router.delete(`/spaces/${space.slug}/members/${userId}`);
         }
     }
 
     function handleDelete() {
         if (confirm('Are you sure you want to delete this space? All documents will be unlinked.')) {
-            router.delete(`/spaces/${space.id}`);
+            router.delete(`/spaces/${space.slug}`);
         }
+    }
+
+    function handleFileDrop(e: React.DragEvent) {
+        e.preventDefault();
+        setIsDragOver(false);
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            setSelectedFile(file);
+            setUploadData('file', file);
+            setUploadData('title', file.name.replace(/\.[^/.]+$/, ''));
+        }
+    }
+
+    function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedFile(file);
+            setUploadData('file', file);
+            setUploadData('title', file.name.replace(/\.[^/.]+$/, ''));
+        }
+    }
+
+    function handleUpload(e: React.FormEvent) {
+        e.preventDefault();
+        postUpload(`/spaces/${space.slug}/upload`, {
+            forceFormData: true,
+            onSuccess: () => {
+                setSelectedFile(null);
+                setUploadData('file', null);
+                setUploadData('title', '');
+                if (fileInputRef.current) fileInputRef.current.value = '';
+            },
+        });
     }
 
     return (
@@ -63,7 +106,7 @@ export default function Show({ space, availableUsers }: ShowProps) {
                 <div className="flex items-start justify-between">
                     <div>
                         <div className="flex items-center gap-2">
-                            <span className="text-3xl">📁</span>
+                            <Folder className="h-7 w-7 text-muted-foreground" />
                             <h1 className="text-2xl font-semibold tracking-tight">{space.name}</h1>
                             {space.is_public && (
                                 <Badge variant="outline" className="bg-green-50 text-green-700 dark:bg-green-900 dark:text-green-300">
@@ -80,7 +123,7 @@ export default function Show({ space, availableUsers }: ShowProps) {
                     </div>
                     <div className="flex gap-2">
                         {canEdit && (
-                            <Button variant="outline" size="sm" onClick={() => router.get(`/spaces/${space.id}/edit`)}>
+                            <Button variant="outline" size="sm" onClick={() => router.get(`/spaces/${space.slug}/edit`)}>
                                 Edit
                             </Button>
                         )}
@@ -163,14 +206,89 @@ export default function Show({ space, availableUsers }: ShowProps) {
                             <CardHeader className="pb-3">
                                 <div className="flex items-center justify-between">
                                     <CardTitle className="text-base">Documents ({space.documents.length})</CardTitle>
-                                    {canEdit && (
-                                        <Button size="sm" onClick={() => router.get('/documents/create')}>
-                                            Upload
-                                        </Button>
-                                    )}
                                 </div>
                             </CardHeader>
                             <CardContent>
+                                {/* Inline Upload */}
+                                {canEdit && (
+                                    <form onSubmit={handleUpload} className="mb-4">
+                                        <div
+                                            className={`flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors ${
+                                                isDragOver
+                                                    ? 'border-primary bg-primary/5'
+                                                    : 'border-muted-foreground/25 hover:border-muted-foreground/50'
+                                            }`}
+                                            onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+                                            onDragLeave={() => setIsDragOver(false)}
+                                            onDrop={handleFileDrop}
+                                            onClick={() => fileInputRef.current?.click()}
+                                        >
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                className="hidden"
+                                                onChange={handleFileSelect}
+                                                accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif"
+                                            />
+                                            {selectedFile ? (
+                                                <div className="text-center">
+                                                    <p className="text-sm font-medium">{selectedFile.name}</p>
+                                                    <p className="text-xs text-muted-foreground">
+                                                        {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                                                    </p>
+                                                </div>
+                                            ) : (
+                                                <div className="text-center">
+                                                    <p className="text-sm text-muted-foreground">
+                                                        Drag & drop a file here, or <span className="text-primary">browse</span>
+                                                    </p>
+                                                    <p className="text-xs text-muted-foreground mt-1">
+                                                        PDF, Word, Excel, PowerPoint, Images (max 50MB)
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {selectedFile && (
+                                            <div className="mt-3 space-y-2">
+                                                <Input
+                                                    placeholder="Document title"
+                                                    value={uploadData.title}
+                                                    onChange={(e) => setUploadData('title', e.target.value)}
+                                                />
+                                                {progress && (
+                                                    <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                                                        <div
+                                                            className="h-full bg-primary transition-all"
+                                                            style={{ width: `${progress.percentage}%` }}
+                                                        />
+                                                    </div>
+                                                )}
+                                                <InputError message={uploadErrors.file} />
+                                                <div className="flex gap-2">
+                                                    <Button type="submit" size="sm" disabled={uploading || !selectedFile}>
+                                                        {uploading ? 'Uploading...' : 'Upload'}
+                                                    </Button>
+                                                    <Button
+                                                        type="button"
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => {
+                                                            setSelectedFile(null);
+                                                            setUploadData('file', null);
+                                                            setUploadData('title', '');
+                                                            if (fileInputRef.current) fileInputRef.current.value = '';
+                                                        }}
+                                                    >
+                                                        Cancel
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </form>
+                                )}
+
+                                {/* Documents List */}
                                 {space.documents.length === 0 ? (
                                     <p className="py-8 text-center text-sm text-muted-foreground">
                                         No documents in this space yet.
@@ -183,7 +301,7 @@ export default function Show({ space, availableUsers }: ShowProps) {
                                                 className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-muted/50"
                                             >
                                                 <div className="flex items-center gap-3">
-                                                    <span className="text-xl">{doc.icon}</span>
+                                                    {(() => { const Icon = getFileIcon(doc.icon as string); return <Icon className="h-5 w-5 text-muted-foreground" />; })()}
                                                     <div>
                                                         <p className="text-sm font-medium">{doc.title}</p>
                                                         <p className="text-xs text-muted-foreground">

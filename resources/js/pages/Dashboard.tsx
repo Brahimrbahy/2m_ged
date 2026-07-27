@@ -1,6 +1,7 @@
 import { Head, router, usePage } from '@inertiajs/react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { FileText, Folder, Users, Link, Pin } from 'lucide-react';
 import StatCard from '@/components/stat-card';
 import DocumentCard from '@/components/document-card';
 import ActivityItem from '@/components/activity-item';
@@ -32,10 +33,10 @@ export default function Dashboard({ stats, recentDocuments, activities, announce
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <StatCard label="Your Documents" value={stats.documents} icon="📄" />
-                    <StatCard label="Spaces" value={stats.spaces} icon="📁" />
-                    <StatCard label="Team Members" value={stats.team_members} icon="👥" />
-                    <StatCard label="Shared with You" value={stats.shared_documents} icon="🔗" />
+                    <StatCard label="Your Documents" value={stats.documents} icon={FileText} />
+                    <StatCard label="Spaces" value={stats.spaces} icon={Folder} />
+                    <StatCard label="Team Members" value={stats.team_members} icon={Users} />
+                    <StatCard label="Shared with You" value={stats.shared_documents} icon={Link} />
                 </div>
 
                 <div className="grid gap-6 lg:grid-cols-3">
@@ -49,7 +50,7 @@ export default function Dashboard({ stats, recentDocuments, activities, announce
                         {recentDocuments.length === 0 ? (
                             <Card>
                                 <CardContent className="flex flex-col items-center justify-center py-12">
-                                    <span className="text-4xl">📁</span>
+                                    <Folder className="h-10 w-10 text-muted-foreground" />
                                     <h3 className="mt-4 text-lg font-medium">No documents yet</h3>
                                     <p className="mt-1 text-sm text-muted-foreground">
                                         Upload your first document to get started.
@@ -60,7 +61,7 @@ export default function Dashboard({ stats, recentDocuments, activities, announce
                                 </CardContent>
                             </Card>
                         ) : (
-                            <div className="grid gap-4 sm:grid-cols-2">
+                            <div className="flex flex-col gap-3">
                                 {recentDocuments.map((doc) => (
                                     <DocumentCard
                                         key={doc.id}
@@ -112,13 +113,13 @@ export default function Dashboard({ stats, recentDocuments, activities, announce
                                         <Card key={announcement.id} className={`border-l-4 transition-shadow hover:shadow-md cursor-pointer ${announcement.is_pinned ? 'border-l-amber-500 bg-amber-50/30 dark:bg-amber-950/10' : 'border-l-blue-500 bg-blue-50 dark:bg-blue-950/20'}`} onClick={() => router.get(`/announcements/${announcement.id}`)}>
                                             <CardContent className="p-4">
                                                 <div className="flex items-center gap-2">
-                                                    {announcement.is_pinned && <span className="text-[10px] font-bold text-amber-600 uppercase tracking-wider">📌 Pinned</span>}
+                                                    {announcement.is_pinned && <span className="flex items-center gap-1 text-[10px] font-bold text-amber-600 uppercase tracking-wider"><Pin className="h-3 w-3" /> Pinned</span>}
                                                 </div>
                                                 <h3 className="mt-1 text-sm font-semibold">{announcement.title}</h3>
                                                 <p className="mt-1 text-xs text-muted-foreground">{announcement.excerpt}</p>
                                                 <div className="mt-2 flex items-center gap-3 text-[10px] text-muted-foreground/60">
                                                     <span>by {announcement.creator.name}</span>
-                                                    <span>{new Date(announcement.created_at).toLocaleDateString()}</span>
+                                                    <span>{new Date(announcement.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} at {new Date(announcement.created_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</span>
                                                     {announcement.comments_count > 0 && <span>{announcement.comments_count} comments</span>}
                                                 </div>
                                             </CardContent>

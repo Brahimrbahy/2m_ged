@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
     Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('documents.show');
     Route::get('/documents/{document}/preview', [DocumentController::class, 'preview'])->name('documents.preview');
+    Route::patch('/documents/{document}', [DocumentController::class, 'update'])->name('documents.update');
     Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 
     Route::post('/documents/{document}/share', [DocumentShareController::class, 'share'])->name('documents.share');
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('spaces', SpaceController::class);
     Route::post('/spaces/{space}/members', [SpaceController::class, 'addMember'])->name('spaces.members.store');
     Route::delete('/spaces/{space}/members/{user}', [SpaceController::class, 'removeMember'])->name('spaces.members.destroy');
+    Route::post('/spaces/{space}/upload', [SpaceController::class, 'uploadFile'])->name('spaces.upload');
 
     Route::get('/search', [SearchController::class, 'search'])->name('search');
     Route::get('/search/instant', [SearchController::class, 'instant'])->name('search.instant');

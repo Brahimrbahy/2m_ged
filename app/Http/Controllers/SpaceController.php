@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSpaceRequest;
 use App\Models\Activity;
+use App\Models\Document;
 use App\Models\Space;
 use App\Models\User;
+use App\Events\DocumentUploaded;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -26,6 +29,7 @@ class SpaceController extends Controller
             ->map(fn (Space $space) => [
                 'id' => $space->id,
                 'name' => $space->name,
+                'slug' => $space->slug,
                 'description' => $space->description,
                 'is_public' => $space->is_public,
                 'document_count' => $space->documents_count,
@@ -91,6 +95,7 @@ class SpaceController extends Controller
             'space' => [
                 'id' => $space->id,
                 'name' => $space->name,
+                'slug' => $space->slug,
                 'description' => $space->description,
                 'is_public' => $space->is_public,
                 'document_count' => $space->documents_count,
@@ -199,6 +204,48 @@ class SpaceController extends Controller
         $space->members()->detach($user->id);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Member removed successfully.']);
+
+        return to_route('spaces.show', $space);
+    }
+
+    public function uploadFile(Request $request, Space $space): RedirectResponse
+    {
+        if (!$space->canEdit(Auth::user())) {
+            abort(403);
+        }
+
+        $request->validate([
+            'file' => ['required', 'file', 'max:51200'],
+            'title' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $file = $request->file('file');
+        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $filePath = $file->storeAs('documents', $filename, 'local');
+
+        $document = Document::create([
+            'title' => $request->input('title') ?: pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
+            'file_path' => $filePath,
+            'file_type' => $file->getClientOriginalExtension(),
+            'file_size' => $file->getSize(),
+            'uploaded_by' => Auth::id(),
+            'space_id' => $space->id,
+            'status' => 'draft',
+            'version' => 1,
+        ]);
+
+        event(new DocumentUploaded($document, Auth::id()));
+
+        $document->createVersion(Auth::user());
+
+        Activity::log(
+            Auth::user(),
+            'document_uploaded',
+            "Uploaded \"{$document->title}\" to \"{$space->name}\"",
+            $document,
+        );
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'File uploaded successfully.']);
 
         return to_route('spaces.show', $space);
     }

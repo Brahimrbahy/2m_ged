@@ -11,6 +11,7 @@ export type SpaceMember = {
 export type Space = {
     id: number;
     name: string;
+    slug: string;
     description: string | null;
     is_public: boolean;
     document_count: number;

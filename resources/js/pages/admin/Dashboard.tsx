@@ -30,10 +30,10 @@ export default function AdminDashboard({ stats, mostActiveSpaces, documentsByMon
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <StatCard label="Total Users" value={stats.total_users} icon="👥" />
-                    <StatCard label="Total Documents" value={stats.total_documents} icon="📄" />
-                    <StatCard label="Total Spaces" value={stats.total_spaces} icon="📁" />
-                    <StatCard label="Storage Used" value={0} icon="💾" />
+                    <StatCard label="Total Users" value={stats.total_users} icon={Users} />
+                    <StatCard label="Total Documents" value={stats.total_documents} icon={FileText} />
+                    <StatCard label="Total Spaces" value={stats.total_spaces} icon={FolderOpen} />
+                    <StatCard label="Storage Used" value={0} icon={HardDrive} />
                 </div>
 
                 <div className="grid gap-4 lg:grid-cols-3">

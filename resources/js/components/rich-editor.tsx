@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Link } from 'lucide-react';
 
 type RichEditorProps = {
     value: string;
@@ -14,7 +15,7 @@ const TOOLBAR_BUTTONS = [
     { label: 'H1', command: 'formatBlock', value: 'h2', title: 'Heading' },
     { label: '•', command: 'insertUnorderedList', title: 'Bullet List' },
     { label: '1.', command: 'insertOrderedList', title: 'Numbered List' },
-    { label: '🔗', command: 'createLink', title: 'Insert Link' },
+    { label: '', command: 'createLink', title: 'Insert Link' },
 ] as const;
 
 export default function RichEditor({
@@ -80,7 +81,7 @@ export default function RichEditor({
                         onClick={() => execCommand(btn.command, btn.value)}
                         className="flex h-7 w-7 items-center justify-center rounded text-xs font-medium text-slate-700 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-700"
                     >
-                        {btn.label}
+                        {btn.command === 'createLink' ? <Link className="h-4 w-4" /> : btn.label}
                     </button>
                 ))}
             </div>

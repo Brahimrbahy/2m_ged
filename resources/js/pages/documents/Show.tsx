@@ -6,6 +6,7 @@ import { Download } from 'lucide-react';
 import ShareModal from '@/components/share-modal';
 import PermissionIndicator from '@/components/permission-indicator';
 import VersionHistoryPanel from '@/components/version-history-panel';
+import { getFileIcon } from '@/lib/icons';
 import type { Document, DocumentShare, DocumentVersion } from '@/types';
 
 const statusConfig = {
@@ -54,7 +55,7 @@ export default function Show({ document }: ShowProps) {
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <span className="text-3xl">{document.icon}</span>
+                        {(() => { const Icon = getFileIcon(document.icon as string); return <Icon className="h-8 w-8 text-muted-foreground" />; })()}
                         <div>
                             <h1 className="text-2xl font-semibold tracking-tight">
                                 {document.title}
@@ -139,9 +140,7 @@ export default function Show({ document }: ShowProps) {
                             />
                         ) : (
                             <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed p-8">
-                                <span className="text-4xl">
-                                    {document.icon}
-                                </span>
+                                {(() => { const Icon = getFileIcon(document.icon as string); return <Icon className="h-10 w-10 text-muted-foreground" />; })()}
                                 <p className="text-sm text-muted-foreground">
                                     Preview not available for .
                                     {document.file_type} files

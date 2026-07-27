@@ -55,9 +55,8 @@ test('user can delete their account', function () {
 
     $response = $this
         ->actingAs($user)
-        ->delete(route('profile.destroy'), [
-            'password' => 'password',
-        ]);
+        ->withSession(['auth.password_confirmed_at' => now()->timestamp])
+        ->delete(route('profile.destroy'));
 
     $response
         ->assertSessionHasNoErrors()
@@ -67,19 +66,14 @@ test('user can delete their account', function () {
     expect($user->fresh())->toBeNull();
 });
 
-test('correct password must be provided to delete account', function () {
+test('session must be password confirmed to delete account', function () {
     $user = User::factory()->create();
 
     $response = $this
         ->actingAs($user)
-        ->from(route('profile.edit'))
-        ->delete(route('profile.destroy'), [
-            'password' => 'wrong-password',
-        ]);
+        ->delete(route('profile.destroy'));
 
-    $response
-        ->assertSessionHasErrors('password')
-        ->assertRedirect(route('profile.edit'));
+    $response->assertForbidden();
 
     expect($user->fresh())->not->toBeNull();
 });

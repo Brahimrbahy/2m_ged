@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Models\Announcement;
+use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,14 +73,32 @@ class AnnouncementController extends Controller
             abort(403);
         }
 
+        $status = $request->input('status', 'draft');
+
         $announcement = Announcement::create([
             'created_by' => $user->id,
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'target_space_id' => $request->input('target_space_id'),
             'is_pinned' => $request->boolean('is_pinned'),
-            'status' => $request->input('status', 'draft'),
+            'status' => $status,
         ]);
+
+        if ($status === 'published') {
+            $userIds = User::where('id', '!=', $user->id)->pluck('id');
+
+            foreach ($userIds as $userId) {
+                Notification::create([
+                    'user_id' => $userId,
+                    'type' => 'announcement',
+                    'title' => $announcement->title,
+                    'message' => $user->name . ' published a new announcement.',
+                    'notifiable_type' => Announcement::class,
+                    'notifiable_id' => $announcement->id,
+                    'action_url' => '/announcements/' . $announcement->id,
+                ]);
+            }
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Announcement created successfully.']);
 

@@ -119,6 +119,21 @@ class DocumentController extends Controller
         return to_route('documents.index');
     }
 
+    public function update(Request $request, Document $document): RedirectResponse
+    {
+        Gate::authorize('update', $document);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+
+        $document->update(['title' => $validated['title']]);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Document renamed successfully.']);
+
+        return back();
+    }
+
     public function show(Document $document): Response
     {
         Gate::authorize('view', $document);

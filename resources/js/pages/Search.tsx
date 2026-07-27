@@ -1,5 +1,6 @@
 import { Head, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { Search as SearchIcon } from 'lucide-react';
 import DocumentCard from '@/components/document-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -155,14 +156,14 @@ export default function Search({ documents, spaces, filters }: SearchProps) {
 
                         {documents.data.length === 0 ? (
                             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-12 text-center">
-                                <span className="text-4xl">🔍</span>
+                                <SearchIcon className="h-10 w-10 text-muted-foreground" />
                                 <h2 className="mt-4 text-lg font-semibold">No results found</h2>
                                 <p className="mt-1 text-sm text-muted-foreground">
                                     Try adjusting your search or filters.
                                 </p>
                             </div>
                         ) : (
-                            <div className="grid gap-4 sm:grid-cols-2">
+                            <div className="flex flex-col gap-3">
                                 {documents.data.map((doc: Document) => (
                                     <DocumentCard key={doc.id} document={doc} />
                                 ))}

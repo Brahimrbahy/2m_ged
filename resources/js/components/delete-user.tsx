@@ -1,9 +1,10 @@
-import { Form } from '@inertiajs/react';
-import { useRef } from 'react';
-import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
+import { router } from '@inertiajs/react';
+import {
+    index as confirmOptions,
+    store as confirmStore,
+} from '@/actions/Laravel/Passkeys/Http/Controllers/PasskeyConfirmationController';
 import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
-import PasswordInput from '@/components/password-input';
+import PasskeyVerify from '@/components/passkey-verify';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -14,11 +15,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
 
 export default function DeleteUser() {
-    const passwordInput = useRef<HTMLInputElement>(null);
-
     return (
         <div className="space-y-6">
             <Heading
@@ -45,73 +43,35 @@ export default function DeleteUser() {
                     </DialogTrigger>
                     <DialogContent>
                         <DialogTitle>
-                            Are you sure you want to delete your account?
+                            Confirm with your passkey to delete your account
                         </DialogTitle>
                         <DialogDescription>
                             Once your account is deleted, all of its resources
                             and data will also be permanently deleted. Please
-                            enter your password to confirm you would like to
-                            permanently delete your account.
+                            verify with your passkey to confirm you would like
+                            to permanently delete your account.
                         </DialogDescription>
 
-                        <Form
-                            {...ProfileController.destroy.form()}
-                            options={{
-                                preserveScroll: true,
+                        <PasskeyVerify
+                            routes={{
+                                options: confirmOptions(),
+                                submit: confirmStore(),
                             }}
-                            onError={() => passwordInput.current?.focus()}
-                            resetOnSuccess
-                            className="space-y-6"
-                        >
-                            {({ resetAndClearErrors, processing, errors }) => (
-                                <>
-                                    <div className="grid gap-2">
-                                        <Label
-                                            htmlFor="password"
-                                            className="sr-only"
-                                        >
-                                            Password
-                                        </Label>
+                            label="Confirm with passkey"
+                            loadingLabel="Confirming..."
+                            separator=""
+                            onSuccess={() => {
+                                router.delete('/settings/profile', {
+                                    preserveScroll: true,
+                                });
+                            }}
+                        />
 
-                                        <PasswordInput
-                                            id="password"
-                                            name="password"
-                                            ref={passwordInput}
-                                            placeholder="Password"
-                                            autoComplete="current-password"
-                                        />
-
-                                        <InputError message={errors.password} />
-                                    </div>
-
-                                    <DialogFooter className="gap-2">
-                                        <DialogClose asChild>
-                                            <Button
-                                                variant="secondary"
-                                                onClick={() =>
-                                                    resetAndClearErrors()
-                                                }
-                                            >
-                                                Cancel
-                                            </Button>
-                                        </DialogClose>
-
-                                        <Button
-                                            variant="destructive"
-                                            disabled={processing}
-                                            asChild
-                                        >
-                                            <button
-                                                type="submit"
-                                                data-test="confirm-delete-user-button"
-                                            >
-                                                Delete account
-                                            </button>
-                                        </Button>
-                                    </DialogFooter>
-                                </>
-                            )}
-                        </Form>
+                        <DialogFooter className="gap-2">
+                            <DialogClose asChild>
+                                <Button variant="secondary">Cancel</Button>
+                            </DialogClose>
+                        </DialogFooter>
                     </DialogContent>
                 </Dialog>
             </div>

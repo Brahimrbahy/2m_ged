@@ -1,5 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
 import { useState, useRef } from 'react';
+import { File, Folder } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -104,7 +105,7 @@ export default function Upload() {
                         >
                             {data.file ? (
                                 <div className="flex flex-col items-center gap-2">
-                                    <span className="text-3xl">📄</span>
+                                    <File className="h-8 w-8 text-muted-foreground" />
                                     <p className="font-medium">{data.file.name}</p>
                                     <p className="text-sm text-muted-foreground">
                                         {formatFileSize(data.file.size)}
@@ -123,7 +124,7 @@ export default function Upload() {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center gap-2">
-                                    <span className="text-4xl">📁</span>
+                                    <Folder className="h-10 w-10 text-muted-foreground" />
                                     <p className="font-medium">Drag and drop your file here</p>
                                     <p className="text-sm text-muted-foreground">
                                         or click to browse

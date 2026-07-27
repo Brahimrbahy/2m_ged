@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Space extends Model
 {
@@ -15,6 +16,7 @@ class Space extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'is_public',
         'created_by',
@@ -25,6 +27,38 @@ class Space extends Model
         return [
             'is_public' => 'boolean',
         ];
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (Space $space) {
+            if (empty($space->slug)) {
+                $slug = Str::slug($space->name);
+                $original = $slug;
+                $count = 1;
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = $original . '-' . $count++;
+                }
+                $space->slug = $slug;
+            }
+        });
+
+        static::updating(function (Space $space) {
+            if ($space->isDirty('name') && !$space->isDirty('slug')) {
+                $slug = Str::slug($space->name);
+                $original = $slug;
+                $count = 1;
+                while (static::where('slug', $slug)->where('id', '!=', $space->id)->exists()) {
+                    $slug = $original . '-' . $count++;
+                }
+                $space->slug = $slug;
+            }
+        });
     }
 
     public function creator(): BelongsTo

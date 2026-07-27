@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { History, Download, RotateCcw, ChevronLeft, ChevronRight, Clock, ArrowLeft } from 'lucide-react';
 import VersionComparison from '@/components/version-comparison';
+import { getFileIcon } from '@/lib/icons';
 import type { DocumentVersion, PaginatedVersions } from '@/types';
 
 type Props = {
@@ -63,7 +64,7 @@ export default function Versions({ document, versions }: Props) {
                             Back
                         </Button>
                         <div className="flex items-center gap-3">
-                            <span className="text-2xl">{document.icon}</span>
+                            {(() => { const Icon = getFileIcon(document.icon as string); return <Icon className="h-6 w-6 text-muted-foreground" />; })()}
                             <div>
                                 <h1 className="text-2xl font-bold">Version History</h1>
                                 <p className="text-sm text-muted-foreground">

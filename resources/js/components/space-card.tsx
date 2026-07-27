@@ -1,6 +1,7 @@
 import { router } from '@inertiajs/react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Folder } from 'lucide-react';
 import type { Space } from '@/types';
 
 const roleBadgeClasses: Record<string, string> = {
@@ -17,12 +18,12 @@ export default function SpaceCard({ space }: SpaceCardProps) {
     return (
         <Card
             className="cursor-pointer transition-shadow hover:shadow-md"
-            onClick={() => router.get(`/spaces/${space.id}`)}
+            onClick={() => router.get(`/spaces/${space.slug}`)}
         >
             <CardHeader className="pb-2">
                 <div className="flex items-start justify-between">
                     <div className="flex items-center gap-2">
-                        <span className="text-2xl">📁</span>
+                        <Folder className="h-5 w-5 text-muted-foreground" />
                         <CardTitle className="text-base">{space.name}</CardTitle>
                     </div>
                     <div className="flex items-center gap-1">

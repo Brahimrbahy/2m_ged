@@ -158,12 +158,12 @@ class Document extends Model
     public function getFileIcon(): string
     {
         return match (true) {
-            str_contains($this->file_type, 'pdf') => '📄',
-            in_array($this->file_type, ['doc', 'docx']) => '📝',
-            in_array($this->file_type, ['xls', 'xlsx']) => '📊',
-            in_array($this->file_type, ['ppt', 'pptx']) => '📽️',
-            in_array($this->file_type, ['jpg', 'jpeg', 'png', 'gif']) => '🖼️',
-            default => '📎',
+            str_contains($this->file_type, 'pdf') => 'FileText',
+            in_array($this->file_type, ['doc', 'docx']) => 'FileText',
+            in_array($this->file_type, ['xls', 'xlsx']) => 'FileSpreadsheet',
+            in_array($this->file_type, ['ppt', 'pptx']) => 'Presentation',
+            in_array($this->file_type, ['jpg', 'jpeg', 'png', 'gif']) => 'Image',
+            default => 'Paperclip',
         };
     }
 

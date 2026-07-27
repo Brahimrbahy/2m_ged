@@ -10,19 +10,16 @@ type Props = {
     announcement: Announcement;
 };
 
-function timeAgo(dateString: string): string {
+function formatDateTime(dateString: string): string {
     const date = new Date(dateString);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffSec = Math.floor(diffMs / 1000);
-    if (diffSec < 60) return 'just now';
-    const diffMin = Math.floor(diffSec / 60);
-    if (diffMin < 60) return `${diffMin}m ago`;
-    const diffHour = Math.floor(diffMin / 60);
-    if (diffHour < 24) return `${diffHour}h ago`;
-    const diffDay = Math.floor(diffHour / 24);
-    if (diffDay < 7) return `${diffDay}d ago`;
-    return date.toLocaleDateString();
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    }) + ' at ' + date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+    });
 }
 
 export default function AnnouncementsShow({ announcement }: Props) {
@@ -65,7 +62,7 @@ export default function AnnouncementsShow({ announcement }: Props) {
                         </h1>
                         <div className="mt-2 flex items-center gap-4 text-sm text-muted-foreground">
                             <UserInfo user={announcement.creator} />
-                            <span>{timeAgo(announcement.created_at)}</span>
+                            <span>{formatDateTime(announcement.created_at)}</span>
                             {announcement.target_space && (
                                 <span>in {announcement.target_space.name}</span>
                             )}

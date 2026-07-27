@@ -2,6 +2,7 @@ import { router } from '@inertiajs/react';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { getFileIcon } from '@/lib/icons';
 import type { SearchResult } from '@/types';
 
 export default function SearchBar() {
@@ -97,7 +98,7 @@ export default function SearchBar() {
                             onClick={() => handleResultClick(result.id)}
                             className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm hover:bg-slate-50 dark:hover:bg-slate-800"
                         >
-                            <span className="text-lg">{result.icon}</span>
+                            {(() => { const Icon = getFileIcon(result.icon as string); return <Icon className="h-5 w-5 text-muted-foreground" />; })()}
                             <div className="min-w-0 flex-1">
                                 <p className="truncate font-medium">{result.title}</p>
                                 <p className="truncate text-xs text-muted-foreground">

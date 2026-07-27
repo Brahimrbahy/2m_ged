@@ -1,5 +1,6 @@
 import { Head, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { FolderOpen } from 'lucide-react';
 import DocumentCard from '@/components/document-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -47,7 +48,7 @@ export default function Index({ documents, filters }: IndexProps) {
 
                 {documents.data.length === 0 ? (
                     <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-12 text-center">
-                        <span className="text-4xl">📁</span>
+                        <FolderOpen className="h-10 w-10 text-muted-foreground" />
                         <h2 className="mt-4 text-lg font-semibold">No documents yet</h2>
                         <p className="mt-1 text-sm text-muted-foreground">
                             Upload your first document to get started.
@@ -57,7 +58,7 @@ export default function Index({ documents, filters }: IndexProps) {
                         </Button>
                     </div>
                 ) : (
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="flex flex-col gap-3">
                         {documents.data.map((doc: Document & { can_share?: boolean; shares_count?: number; versions_count?: number }) => (
                             <DocumentCard
                                 key={doc.id}

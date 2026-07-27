@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Enterprise OS | Document Preview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container": "#e5eeff",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#ffddb8",
+                        "primary-container": "#2563eb",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary": "#784b00",
+                        "tertiary-container": "#996100",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "secondary": "#006b5f",
+                        "surface-tint": "#0053db",
+                        "on-secondary-container": "#006f64",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#6df5e1",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-background": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-low": "#eff4ff",
+                        "inverse-surface": "#213145",
+                        "surface-container-highest": "#d3e4fe",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "secondary-fixed": "#71f8e4",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed": "#dbe1ff",
+                        "outline": "#737686",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "on-primary-container": "#eeefff",
+                        "on-surface-variant": "#434655",
+                        "on-tertiary-container": "#ffeedd",
+                        "background": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "on-surface": "#0b1c30",
+                        "on-secondary-fixed": "#00201c",
+                        "on-tertiary-fixed-variant": "#653e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "lg": "24px",
+                        "sidebar-width": "280px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "caption": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "caption": ["12px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "label-md": ["13px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["28px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .document-canvas {
+            background-image: 
+                radial-gradient(#e5eeff 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d3e4fe; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #c3c6d7; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex overflow-hidden">
+<!-- Sidebar Navigation Shell -->
+<aside class="w-sidebar-width h-screen sticky left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col p-lg gap-md shrink-0">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">corporate_fare</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Enterprise OS</h1>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-colors active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm bg-primary-container text-on-primary-container rounded-lg px-md py-sm border-l-2 border-primary active:scale-95" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-body-md text-body-md">Documents</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-colors active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">groups</span>
+<span class="font-body-md text-body-md">Collaborative Spaces</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-colors active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">newspaper</span>
+<span class="font-body-md text-body-md">News</span>
+</a>
+<div class="pt-lg pb-sm">
+<p class="text-[10px] uppercase tracking-widest font-bold text-outline px-md">Internal Tools</p>
+</div>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-colors active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">search</span>
+<span class="font-body-md text-body-md">Search</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-colors active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">notifications</span>
+<span class="font-body-md text-body-md">Notifications</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-colors active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-md rounded-lg flex items-center justify-center gap-sm transition-transform active:scale-95 shadow-sm">
+<span class="material-symbols-outlined">add</span>
+                Create New Space
+            </button>
+<div class="mt-lg flex items-center gap-md px-md py-sm rounded-lg hover:bg-surface-container-high cursor-pointer transition-colors">
+<img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a female executive with a friendly smile, dressed in a sharp navy blazer, set against a blurred modern office background with soft natural lighting. High-end, corporate portrait photography style using a palette of blues, whites, and warm skin tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo0svgc7ryKFLt0szaC2DBevMbUKblLg6jpxORrbJKPg78Oxl0zT6W2gEEvoLkhUiV1YjrK8QPilM6YnGDnQvjDY5gviAsyZ82S6hvIwGYG-MzRaohEUYxaVFCvT8_lGV9aSKtnNik-Fesb2Gx-A7EtNb4HzGIY54P-IGiVKsnClkfpVwcyFeoy_XHtGYiv31_6zXyqSFq07bHb0s3HoKj4tUTZz1NdNMk8rqx3TKftLmIar8YJlm8Z8zelnwxUThp9JGwRBeBXFo"/>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold">User Profile</p>
+<p class="font-caption text-caption text-on-surface-variant">Senior Analyst</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Navbar Shell -->
+<header class="h-16 w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center px-xl shrink-0">
+<div class="flex items-center gap-xl">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Collaborative Platform</span>
+</div>
+<nav class="hidden md:flex gap-lg items-center h-full">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Workspaces</a>
+<a class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1" href="#">Recent</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Pinned</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">help</span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-all relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm"></div>
+<button class="bg-primary-container/10 text-primary px-md py-sm rounded-lg font-label-md text-label-md hover:bg-primary-container/20 transition-all active:scale-95">
+                    Workspace Selector
+                </button>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md hover:opacity-90 transition-all active:scale-95 shadow-sm">
+                    Upload
+                </button>
+</div>
+</header>
+<!-- Two Column Layout Content -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Column: Document Preview (70%) -->
+<section class="w-[70%] flex flex-col bg-surface-dim/30 document-canvas overflow-hidden border-r border-outline-variant">
+<!-- Preview Toolbar -->
+<div class="bg-surface/60 backdrop-blur-sm px-xl py-sm flex justify-between items-center border-b border-outline-variant/30">
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm bg-surface rounded-lg border border-outline-variant px-sm py-1">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">description</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">Q4_Enterprise_Strategy_v2.pdf</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">12.4 MB • 48 Pages</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs bg-surface-container-lowest border border-outline-variant rounded-lg p-1">
+<button class="p-1 hover:bg-surface-container-high rounded transition-colors"><span class="material-symbols-outlined text-sm">remove</span></button>
+<span class="px-md font-label-md text-label-md border-x border-outline-variant">100%</span>
+<button class="p-1 hover:bg-surface-container-high rounded transition-colors"><span class="material-symbols-outlined text-sm">add</span></button>
+</div>
+<button class="p-1 hover:bg-surface-container-high rounded-lg transition-colors"><span class="material-symbols-outlined">fit_screen</span></button>
+<button class="p-1 hover:bg-surface-container-high rounded-lg transition-colors"><span class="material-symbols-outlined">fullscreen</span></button>
+</div>
+</div>
+<!-- Scrollable Document Area -->
+<div class="flex-1 overflow-y-auto p-xl custom-scrollbar flex justify-center">
+<div class="w-full max-w-[800px] bg-white shadow-lg min-h-[1100px] p-xl border border-outline-variant/20 rounded-sm">
+<div class="flex justify-between items-start mb-xl">
+<div class="h-12 w-12 bg-primary flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-white text-3xl">architecture</span>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase font-bold tracking-widest text-primary">Confidential</p>
+<p class="font-caption text-caption text-on-surface-variant">Doc ID: EP-2024-0492</p>
+</div>
+</div>
+<h2 class="font-display text-display text-on-surface mb-md">2024 Global Enterprise Expansion Strategy</h2>
+<p class="font-label-md text-label-md text-primary mb-xl">PREPARED BY STRATEGIC OPERATIONS GROUP</p>
+<div class="space-y-md">
+<div class="h-4 bg-surface-container-low rounded w-3/4"></div>
+<div class="h-4 bg-surface-container-low rounded w-full"></div>
+<div class="h-4 bg-surface-container-low rounded w-5/6"></div>
+<div class="h-4 bg-surface-container-low rounded w-full"></div>
+<div class="h-4 bg-surface-container-low rounded w-2/3"></div>
+</div>
+<div class="grid grid-cols-2 gap-lg my-xl">
+<div class="aspect-video bg-surface-container rounded-xl overflow-hidden relative border border-outline-variant/30 flex items-center justify-center">
+<img class="w-full h-full object-cover opacity-80" data-alt="A high-resolution data visualization chart displaying a complex global network with glowing nodes and lines. The colors follow a professional palette of deep primary blue, secondary teal, and soft purple accents. The style is clean, editorial, and sophisticated, suited for a high-end corporate strategy document." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBU9cyAWg8lbwqwOl3X2jkedkTuKN0cxPMS6ZhO39H4wuZj08hOFb1ONmyHqquvfj2AVHWxcCXFz6PNMjYxszSDIcmZbApZlFf_-rda_Gq5W4U1UA6hZMuoPeorTtyFo2yeTsv1mZ6bfKmQh6mfm6FS3Z8LsvWvPRmTGs-CeKD1znobRhclmWGOrFS2nH-MOkZjApavjgnqznFhIF-mvHSbrJkjuwrD7tq3yWjAzRSt9qox4o2g8V30Yg4NGoRkil16Z1HmJuUnY4"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/10">
+<span class="bg-white/90 px-md py-1 rounded-full font-caption text-caption shadow-sm">Figure 1.1 Market Dynamics</span>
+</div>
+</div>
+<div class="space-y-sm py-md">
+<div class="h-3 bg-surface-container-low rounded w-full"></div>
+<div class="h-3 bg-surface-container-low rounded w-full"></div>
+<div class="h-3 bg-surface-container-low rounded w-4/5"></div>
+<div class="h-3 bg-surface-container-low rounded w-full"></div>
+<div class="h-3 bg-surface-container-low rounded w-full"></div>
+</div>
+</div>
+<div class="pt-xl border-t border-outline-variant mt-[400px]">
+<p class="font-body-md text-body-md text-on-surface-variant italic">
+                                "The fusion of cloud infrastructure with localized operational intelligence will define the next decade of enterprise scalability."
+                            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Metadata & Activity (30%) -->
+<section class="w-[30%] flex flex-col bg-surface overflow-hidden">
+<div class="p-lg flex flex-col gap-lg h-full custom-scrollbar overflow-y-auto">
+<!-- Action Row -->
+<div class="flex flex-wrap gap-sm">
+<button class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-sm rounded-lg flex items-center justify-center gap-xs hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">visibility</span> Preview
+                        </button>
+<button class="flex-1 border border-outline-variant text-on-surface-variant font-label-md text-label-md py-sm rounded-lg flex items-center justify-center gap-xs hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                        </button>
+<button class="flex-1 border border-outline-variant text-on-surface-variant font-label-md text-label-md py-sm rounded-lg flex items-center justify-center gap-xs hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">download</span> Download
+                        </button>
+<button class="w-full border border-outline-variant text-on-surface-variant font-label-md text-label-md py-sm rounded-lg flex items-center justify-center gap-xs hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">share</span> Share Link
+                        </button>
+</div>
+<!-- Metadata Section -->
+<div class="space-y-md">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider">Information</h3>
+<div class="grid grid-cols-1 gap-sm">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30">
+<span class="font-body-md text-body-md text-on-surface-variant">Created By</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Alex Rivera</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30">
+<span class="font-body-md text-body-md text-on-surface-variant">Last Modified</span>
+<span class="font-body-md text-body-md text-on-surface">Oct 12, 2024</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30">
+<span class="font-body-md text-body-md text-on-surface-variant">Workspace</span>
+<span class="font-body-md text-body-md text-primary">Strategic Ops</span>
+</div>
+</div>
+<div class="space-y-sm">
+<p class="font-label-md text-label-md text-on-surface font-bold">Description</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Final strategy document for the 2024 global expansion phase. Includes market analysis, localized risk assessment, and projected CAPEX across three continents.</p>
+</div>
+<div class="flex flex-wrap gap-xs">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full font-caption text-caption">Strategy</span>
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full font-caption text-caption">Global Expansion</span>
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full font-caption text-caption">Financials</span>
+</div>
+</div>
+<!-- Shared With -->
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider">Shared With</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">+ Invite</button>
+</div>
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface object-cover ring-1 ring-outline-variant" data-alt="A portrait of a male professional in his 40s, with short dark hair and glasses, wearing a light grey sweater, set against a clean white minimalist background. Soft studio lighting with a neutral color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHIp13BrrNIToyUpUsm4qTw7CdWvrYhx7vBafnOO29_XEv_lGXGyAL2AtspyNAZyjVmWl3cLFsOiz7hbFVFu0cD_McUlhc7NvcmUrKlWYEBRrnhJ7Ts3FbrS-3ni24B0nca4d_wrUq2EQfLsOeYU_LTJhovNr06Q9nDzdOcdfVcrAqLRne1TSLX0_i6D9177L3psT0XV1mc-ppuwUXrH3O-HncTotpr5-t6peuIZTPsllbxFm3PFWR4n7jZ_FZHSuKu0E3JKf3WZ8"/>
+<img class="w-8 h-8 rounded-full border-2 border-surface object-cover ring-1 ring-outline-variant" data-alt="A portrait of a young female designer with vibrant style, wearing a mustard yellow top, set against a teal-colored office wall. Modern, bright lighting with a clear and crisp photographic quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGUc81EXZXyoE-aDE_IlaW0-8Y6-ZWiq_A8cB659nmVGBAGX7EhqwlOnauijku6u5vr4Gdd-A3p0GhpWS95-ZFgn_iLiHQPMcqDVeu71NMfPG33FEkcHCmPoQb0qHkAgtbhbHii2Ve-uqbFvENNpenMSngGazIpoaRCoiTtaaWRhMicQRdG3wojBfqY8cytNQEpGXt8YrjJVZ7RGiDIqB4uAkJLHgWj1wdGG0zXgYybloIG3kmoo-WGAm4tll4PaVC1INGB1xad6k"/>
+<img class="w-8 h-8 rounded-full border-2 border-surface object-cover ring-1 ring-outline-variant" data-alt="A portrait of a middle-aged woman with silver hair, in a crisp white shirt, smiling warmly, set against an out-of-focus background of indoor plants. High-end lifestyle corporate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb0PL7hGZ1DNF8qmTI9njN6avvtEBbt_dbRYohxt3TJfEP0vfprkWbk1kBNl_Gt3ViekZcomSwRx4n3zExYvCnarST9TIj278B4Nh-ESNS8TewAcles82AOc2sd0R4RwhaIeWSeXQEwHlhzvTBoZrRn2n6r-LWmcAnPtOhyO_d8-SbqC9hsWiVb3W91WXPO6y_KCfNg_gNm7dl99tYJkIk7TtxHsyyN8oAyZHFoMfFaYxOZRHji8aKnzF2oxW6twO5L8aKAsDb5YU"/>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-surface ring-1 ring-outline-variant flex items-center justify-center font-caption text-caption text-on-surface-variant">+12</div>
+</div>
+</div>
+<!-- Version History -->
+<div class="space-y-md">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider">Version History</h3>
+<div class="relative pl-6 space-y-lg border-l border-outline-variant">
+<div class="relative">
+<div class="absolute -left-[29px] top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary-container/20"></div>
+<p class="font-label-md text-label-md font-bold text-on-surface">Version 2.0 (Active)</p>
+<p class="font-caption text-caption text-on-surface-variant">Today, 2:45 PM by Alex Rivera</p>
+<p class="font-body-md text-body-md mt-1 text-on-surface-variant">Approved market entry points.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[29px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
+<p class="font-label-md text-label-md text-on-surface-variant">Version 1.2</p>
+<p class="font-caption text-caption text-on-surface-variant">Oct 10, 2024 by Sarah Jenkins</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[29px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
+<p class="font-label-md text-label-md text-on-surface-variant">Version 1.0 (Initial)</p>
+<p class="font-caption text-caption text-on-surface-variant">Oct 08, 2024 by Alex Rivera</p>
+</div>
+</div>
+</div>
+<!-- Comments Section -->
+<div class="space-y-md mt-auto pt-lg border-t border-outline-variant">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider">Comments (4)</h3>
+<div class="space-y-lg">
+<div class="flex gap-sm">
+<img class="w-8 h-8 rounded-full shrink-0" data-alt="A portrait of a male tech lead with a thoughtful expression, wearing a black t-shirt, set against a dark architectural background. Dramatic but clean lighting with a premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-xDJlCd36UMXKHrg6GJQrBoOo2q9pM5ar3rUzllPh7NsSq-AZ3tMQOR_ZCL5eKiLDq0Q4bc4_yZ8aPkTpO81cYiNPiIn7i0wp7CRV8fGh1f4W8u9z0MG7EHUVehrzqIsfs-SfshdkgfO0-2DcBkHVXzt-EmokETab3C-fOb389WbcbNwr6S0lf9E8NxEC4xl2Os4oPZfdRL9elGT6yLJcmC_8dKTYi7cy2uG1X7AtxTuKzpaEEGt6eHAFUyFWLaXlgdTYLIZun-4"/>
+<div>
+<div class="flex items-center gap-xs mb-1">
+<span class="font-label-md text-label-md font-bold text-on-surface">Marcus Chen</span>
+<span class="font-caption text-caption text-outline">1h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Looks great! Should we include the APAC projections in the appendix or inline?</p>
+<button class="mt-xs font-label-md text-label-md text-primary hover:underline">Reply</button>
+</div>
+</div>
+<div class="flex gap-sm">
+<img class="w-8 h-8 rounded-full shrink-0" data-alt="A close-up portrait of a professional woman with glasses, smiling, wearing a teal blazer, set against a blurred office environment with bright daylight. Sharp, clean, and vibrant high-key photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAA2tXH7NEdb6Syh-cqq6NSMG6Tl3AmYok1XYqgSAgtDe-IKGsxBAYvF-GuKIc8EWXKVG4lDGSDv3tagjFCg9U19Kyzw_6WZFrrjKDwU70GhVbF2h3AqR-OSCHenT0PHQSOm-ExLiME_wKyojPywNFYZ6Iz8G2IjgMQUpHYlm3QVP_BhR3QDhHFv07GLz8fnYlXat4q4_Zm7PgqRQ9_-ijDp2_eYTOEo9wuZhtyfIEKiQAFHbDp-ziTM0bao_XN252MJh5vbhN6LQ"/>
+<div>
+<div class="flex items-center gap-xs mb-1">
+<span class="font-label-md text-label-md font-bold text-on-surface">Sarah Jenkins</span>
+<span class="font-caption text-caption text-outline">3h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Finalized the risk assessment on page 14. Ready for review.</p>
+</div>
+</div>
+</div>
+<div class="mt-md bg-surface-container-low rounded-xl p-2 border border-outline-variant">
+<textarea class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md placeholder:text-outline-variant resize-none" placeholder="Add a comment..." rows="2"></textarea>
+<div class="flex justify-between items-center px-sm py-1 border-t border-outline-variant/30 mt-2">
+<div class="flex gap-xs">
+<button class="p-1 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">alternate_email</span></button>
+<button class="p-1 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">mood</span></button>
+<button class="p-1 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-lg">attach_file</span></button>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-md py-1 rounded-lg">Post</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Toast Notification (Level 3 Overlay) -->
+<div class="fixed bottom-lg right-lg bg-inverse-surface text-inverse-on-surface p-md rounded-xl shadow-2xl flex items-center gap-md transform transition-all duration-500 translate-y-24 opacity-0 z-50" id="toast">
+<span class="material-symbols-outlined text-primary-fixed">cloud_done</span>
+<p class="font-body-md text-body-md">All changes saved to cloud</p>
+<button class="ml-lg opacity-60 hover:opacity-100" onclick="document.getElementById('toast').classList.add('translate-y-24', 'opacity-0')"><span class="material-symbols-outlined">close</span></button>
+</div>
+<script>
+        // Simple Interaction logic
+        window.addEventListener('load', () => {
+            // Show toast after 2 seconds
+            setTimeout(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-24', 'opacity-0');
+            }, 2000);
+        });
+
+        // Hover effects and micro-interactions
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                // Potential for haptic-style sound or subtle visual pulse
+            });
+        });
+    </script>
+</body></html>
