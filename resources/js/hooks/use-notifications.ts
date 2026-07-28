@@ -9,12 +9,19 @@ function playNotificationSound() {
     }
 }
 
-export function useNotifications(pollInterval = 30000) {
+type NewNotification = {
+    title: string;
+    message: string;
+};
+
+export function useNotifications(pollInterval = 30000, onNewNotification?: (n: NewNotification) => void) {
     const [unreadCount, setUnreadCount] = useState(0);
     const [loading, setLoading] = useState(false);
     const intervalRef = useRef<ReturnType<typeof setInterval>>(null);
     const initializedRef = useRef(false);
     const countRef = useRef(0);
+    const onNewRef = useRef(onNewNotification);
+    onNewRef.current = onNewNotification;
 
     const fetchCount = useCallback(async () => {
         try {
@@ -24,6 +31,13 @@ export function useNotifications(pollInterval = 30000) {
 
             if (initializedRef.current && newCount > countRef.current) {
                 playNotificationSound();
+
+                const recentRes = await fetch('/notifications/recent');
+                const recentData = await recentRes.json();
+                const latest = recentData.notifications?.[0];
+                if (latest && onNewRef.current) {
+                    onNewRef.current({ title: latest.title, message: latest.message });
+                }
             }
 
             countRef.current = newCount;

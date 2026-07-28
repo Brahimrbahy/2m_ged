@@ -139,7 +139,7 @@ export default function Show({ document }: ShowProps) {
                                 title={document.title}
                             />
                         ) : (
-                            <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed p-8">
+                            <div className="flex flex-col items-center gap-3 rounded-lg border border-solid p-8">
                                 {(() => { const Icon = getFileIcon(document.icon as string); return <Icon className="h-10 w-10 text-muted-foreground" />; })()}
                                 <p className="text-sm text-muted-foreground">
                                     Preview not available for .

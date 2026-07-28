@@ -1,4 +1,3 @@
-import AppLayout from '@/layouts/app-layout';
 import { Head, router } from '@inertiajs/react';
 import { Bell, Check, CheckCheck, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -50,7 +49,7 @@ export default function Notifications({
     }
 
     return (
-        <AppLayout>
+        <>
             <Head title="Notifications" />
 
             <div className="mx-auto max-w-3xl space-y-6 p-6">
@@ -160,6 +159,6 @@ export default function Notifications({
                     </div>
                 )}
             </div>
-        </AppLayout>
+        </>
     );
 }

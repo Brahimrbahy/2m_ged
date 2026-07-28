@@ -155,7 +155,7 @@ export default function Search({ documents, spaces, filters }: SearchProps) {
                         )}
 
                         {documents.data.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-12 text-center">
+                            <div className="flex flex-col items-center justify-center rounded-xl border border-solid p-12 text-center">
                                 <SearchIcon className="h-10 w-10 text-muted-foreground" />
                                 <h2 className="mt-4 text-lg font-semibold">No results found</h2>
                                 <p className="mt-1 text-sm text-muted-foreground">

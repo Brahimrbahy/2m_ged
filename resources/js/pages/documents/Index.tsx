@@ -47,7 +47,7 @@ export default function Index({ documents, filters }: IndexProps) {
                 </form>
 
                 {documents.data.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-12 text-center">
+                    <div className="flex flex-col items-center justify-center rounded-xl border border-solid p-12 text-center">
                         <FolderOpen className="h-10 w-10 text-muted-foreground" />
                         <h2 className="mt-4 text-lg font-semibold">No documents yet</h2>
                         <p className="mt-1 text-sm text-muted-foreground">

@@ -119,7 +119,7 @@ export default function BulkImportModal({ open, onClose, onImportComplete }: Bul
 
                 <div className="space-y-4 overflow-y-auto flex-1 min-h-0">
                     <div
-                        className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-8 transition-colors hover:border-primary/50 hover:bg-muted/50 cursor-pointer"
+                        className="flex flex-col items-center justify-center rounded-lg border-2 border-solid p-8 transition-colors hover:border-primary/50 hover:bg-muted/50 cursor-pointer"
                         onClick={() => fileInputRef.current?.click()}
                     >
                         <Upload className="mb-3 h-8 w-8 text-muted-foreground" />

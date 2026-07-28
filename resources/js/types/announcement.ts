@@ -11,6 +11,7 @@ export type Announcement = {
     creator: {
         id: number;
         name: string;
+        avatar?: string;
     };
     target_space: {
         id: number;

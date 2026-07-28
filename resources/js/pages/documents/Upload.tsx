@@ -97,7 +97,7 @@ export default function Upload() {
                             onDragOver={handleDragOver}
                             onDragLeave={handleDragLeave}
                             onClick={() => fileInputRef.current?.click()}
-                            className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
+                            className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-solid p-8 text-center transition-colors ${
                                 isDragging
                                     ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-950'
                                     : 'border-slate-300 hover:border-slate-400 dark:border-slate-700 dark:hover:border-slate-600'

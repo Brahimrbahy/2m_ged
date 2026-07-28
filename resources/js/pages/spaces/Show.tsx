@@ -213,7 +213,7 @@ export default function Show({ space, availableUsers }: ShowProps) {
                                 {canEdit && (
                                     <form onSubmit={handleUpload} className="mb-4">
                                         <div
-                                            className={`flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors ${
+                                            className={`flex flex-col items-center justify-center rounded-lg border-2 border-solid p-6 transition-colors ${
                                                 isDragOver
                                                     ? 'border-primary bg-primary/5'
                                                     : 'border-muted-foreground/25 hover:border-muted-foreground/50'
