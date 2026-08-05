@@ -9,6 +9,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DocumentShareController;
 use App\Http\Controllers\DocumentVersionController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ManagerDocumentController;
+use App\Http\Controllers\ManagerUserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SpaceController;
 use Illuminate\Support\Facades\Route;
@@ -58,8 +60,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Manager routes (admin + manager)
     Route::middleware('manager')->prefix('manager')->name('manager.')->group(function () {
         Route::get('/dashboard', fn () => Inertia::render('manager/Dashboard'))->name('dashboard');
-        Route::get('/documents', fn () => Inertia::render('manager/Documents'))->name('documents');
-        Route::get('/users', fn () => Inertia::render('manager/Users'))->name('users');
+        Route::get('/documents', [ManagerDocumentController::class, 'index'])->name('documents');
+        Route::post('/documents/bulk-delete', [ManagerDocumentController::class, 'bulkDelete'])->name('documents.bulk-delete');
+        Route::post('/documents/bulk-download', [ManagerDocumentController::class, 'bulkDownload'])->name('documents.bulk-download');
+        Route::get('/users', [ManagerUserController::class, 'index'])->name('users');
+        Route::post('/users', [ManagerUserController::class, 'store'])->name('users.store');
+        Route::delete('/users/{user}', [ManagerUserController::class, 'destroy'])->name('users.destroy');
     });
 
     // Admin routes

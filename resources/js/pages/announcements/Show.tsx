@@ -162,17 +162,6 @@ export default function AnnouncementsShow({ announcement }: Props) {
                         </div>
                     </div>
 
-                    {/* Footer Navigation */}
-                    <div className="mt-10 flex justify-center">
-                        <Button
-                            variant="outline"
-                            onClick={() => router.visit('/announcements')}
-                            className="gap-2 transition-colors hover:bg-muted"
-                        >
-                            <ArrowLeft className="h-4 w-4" />
-                            Back to Announcements
-                        </Button>
-                    </div>
                 </div>
             </div>
         </>
