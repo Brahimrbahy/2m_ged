@@ -56,3 +56,25 @@ export type PaginatedUsers = {
         active: boolean;
     }[];
 };
+
+export type AdminSettings = {
+    app: {
+        name: string;
+        support_email: string;
+        default_locale: string;
+        date_format: string;
+    };
+    documents: {
+        max_upload_size: number;
+        allowed_file_types: string;
+    };
+    spaces: {
+        default_visibility: 'public' | 'private';
+        user_storage_quota: number;
+    };
+    users: {
+        allow_registration: boolean;
+        default_role: 'admin' | 'manager' | 'user';
+        require_email_verification: boolean;
+    };
+};

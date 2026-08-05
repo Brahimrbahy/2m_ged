@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminImportController;
+use App\Http\Controllers\AdminSettingsController;
 use App\Http\Controllers\AdminStatisticsController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AnnouncementController;
@@ -73,7 +74,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminStatisticsController::class, 'statistics'])->name('dashboard');
         Route::resource('users', AdminUserController::class);
         Route::post('users/import', [AdminImportController::class, 'import'])->name('users.import');
-        Route::get('/settings', fn () => Inertia::render('admin/Settings'))->name('settings');
+        Route::get('/settings', [AdminSettingsController::class, 'index'])->name('settings');
+        Route::put('/settings', [AdminSettingsController::class, 'update'])->name('settings.update');
     });
 });
 
